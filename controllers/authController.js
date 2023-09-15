@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt') //hasing password
 const jwt = require('jsonwebtoken'); //authorization
 
 
+
 authController.post('/register', async(req,res)=>{
     try {
         const isExisting = await User.findOne({email:req.body.email})
@@ -17,7 +18,7 @@ authController.post('/register', async(req,res)=>{
 
         const {password, ...others} = newUser._doc
 
-        const token = jwt.sign({id:newUser._id}, process.env.JWT_SECRET, {expiresIn:'2h'})
+        const token = jwt.sign({id:newUser._id}, process.env.JWT_SECRET, {expiresIn:'5h'})
    
         return res.status(201).json ({user: others, token})
         
@@ -37,7 +38,7 @@ authController.post('/login', async(req,res)=>{
             throw new Error("Invalid Credential")
         }
         const {password, ...others} = user._doc
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn:'2h'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn:'5h'})
         
         return res.status(200).json ({user: others, token})
     } catch (error) {

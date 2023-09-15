@@ -40,6 +40,4 @@ const BlogSchema = new Schema({
 }, {timestamps: true})
 
 
-const userModel = mongoose.model('Blog', BlogSchema);
-
-module.exports = BlogSchema;
+module.exports = mongoose.model('Blog', BlogSchema);

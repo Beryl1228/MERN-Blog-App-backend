@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const cors = require('cors') //connect front and back end
 const app = express()
 const authController = require('./controllers/authController')
+const blogController = require('./controllers/blogController')
 
 //conncect db
 mongoose.connect(process.env.MONGO_URL)
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 //routes
 app.use('/auth', authController)
+app.use('/blog', blogController)
 
 // Server Listener
 const PORT = process.env.PORT || 3001;
