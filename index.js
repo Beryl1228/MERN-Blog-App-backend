@@ -6,13 +6,6 @@ const app = express()
 const authController = require('./controllers/authController')
 const blogController = require('./controllers/blogController')
 
-//conncect db
-mongoose.connect(process.env.MONGO_URL)
-.then(()=> console.log("Database Connected"))
-.catch((error)=> console.log("Database not connected",error))
-
-
-
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -24,4 +17,13 @@ app.use('/blog', blogController)
 
 // Server Listener
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Now Listening on port ${PORT}`));
+
+//conncect db
+mongoose.connect(process.env.MONGO_URL)
+.then(()=> {
+    console.log("Database Connected")
+    app.listen(PORT, () => console.log(`Now Listening on port ${PORT}`));
+})
+.catch((error)=> console.log("Database not connected",error))
+
+
